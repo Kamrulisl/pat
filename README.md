@@ -64,9 +64,17 @@ Admin and user can stay logged in at the same time in the same browser because t
 
 ![Admin login](screenshots/admin-login.png)
 
+### Admin Panel
+
+![Admin panel](screenshots/admin-panel.png)
+
 ### User Login
 
 ![User login](screenshots/user-login.png)
+
+### User Panel
+
+![User panel](screenshots/user-panel.png)
 
 ## Bangla Summary
 
@@ -103,6 +111,8 @@ Admin and user can stay logged in at the same time in the same browser because t
 | `include/aside.php` | Shared side menu for root-level panel pages |
 | `include/footer.php` | Shared footer |
 | `uploads/` | Pet/user image upload folders and sample images |
+| `screenshots/` | README screenshots for home, browse, login and panels |
+| `tools/capture-screenshots.js` | Headless Chrome screenshot capture script |
 
 ## Database Tables
 
