@@ -2,7 +2,7 @@
 require_once "include/function.php";
 
 if (currentUser()) {
-    header("Location: dashboard.php");
+    header("Location: user/index.php");
     exit();
 }
 
@@ -18,8 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = mysqli_fetch_assoc($result);
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['email'] = $user['email'];
-        $_SESSION['role'] = $user['role'];
-        header("Location: " . ($user['role'] === 'admin' ? "admin/index.php" : "user/index.php"));
+        header("Location: user/index.php");
         exit();
     }
 
@@ -40,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main class="max-w-7xl mx-auto px-4 py-10">
     <div class="max-w-md mx-auto bg-white border border-slate-200 rounded-lg p-8 shadow-sm">
         <h1 class="text-3xl font-bold mb-2">Login</h1>
-        <p class="text-slate-500 mb-6">Login to admin panel or user panel.</p>
+        <p class="text-slate-500 mb-6">Login to your user panel.</p>
         <?php if ($error): ?>
             <div class="bg-red-50 text-red-700 border border-red-200 rounded-md px-4 py-3 mb-5"><?= h($error) ?></div>
         <?php endif; ?>
@@ -56,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button class="w-full bg-blue-600 text-white font-bold py-3 rounded-md hover:bg-blue-700" type="submit">Login</button>
         </form>
         <p class="text-center mt-5 text-sm">No account? <a class="text-blue-600 font-semibold" href="register.php">Register here</a></p>
+        <p class="text-center mt-2 text-sm"><a class="text-slate-600 font-semibold" href="admin/login.php">Admin login</a></p>
     </div>
 </main>
 <?php include "include/footer.php"; ?>

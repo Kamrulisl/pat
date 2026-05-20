@@ -1,15 +1,11 @@
 <?php
 require_once "include/function.php";
-$user = requireLogin();
-if ($user['role'] !== 'admin') {
-    header("Location: dashboard.php");
-    exit();
-}
+$admin = requireAdmin();
 $categories = getAllCategories();
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $admin_id = (int) $user['user_id'];
+    $admin_id = (int) $admin['admin_id'];
     $category_id = (int) $_POST['category_id'];
     $pet_name = mysqli_real_escape_string($conn, trim($_POST['pet_name']));
     $breed = mysqli_real_escape_string($conn, trim($_POST['breed']));

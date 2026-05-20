@@ -1,17 +1,24 @@
 <?php
 require_once "include/function.php";
-$user = requireLogin();
-$user_id = (int) $user['user_id'];
+$admin = currentAdmin();
+$user = currentUser();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $user['role'] === 'admin') {
-    $order_id = (int) $_POST['order_id'];
-    $status = in_array($_POST['order_status'], ['pending', 'completed', 'cancelled'], true) ? $_POST['order_status'] : 'pending';
-    mysqli_query($conn, "UPDATE Orders JOIN Pets ON Pets.pet_id=Orders.pet_id SET Orders.order_status='$status', Pets.status='" . ($status === 'completed' ? 'sold' : ($status === 'cancelled' ? 'available' : 'pending')) . "' WHERE Orders.order_id=$order_id AND Pets.admin_id=$user_id");
+if (!$admin && !$user) {
+    header("Location: login.php");
+    exit();
 }
 
-if ($user['role'] === 'admin') {
-    $sql = "SELECT Orders.*, Pets.pet_name, Users.full_name AS user_name FROM Orders JOIN Pets ON Pets.pet_id=Orders.pet_id JOIN Users ON Users.user_id=Orders.user_id WHERE Pets.admin_id=$user_id ORDER BY Orders.order_date DESC";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $admin) {
+    $order_id = (int) $_POST['order_id'];
+    $status = in_array($_POST['order_status'], ['pending', 'completed', 'cancelled'], true) ? $_POST['order_status'] : 'pending';
+    mysqli_query($conn, "UPDATE Orders JOIN Pets ON Pets.pet_id=Orders.pet_id SET Orders.order_status='$status', Pets.status='" . ($status === 'completed' ? 'sold' : ($status === 'cancelled' ? 'available' : 'pending')) . "' WHERE Orders.order_id=$order_id");
+}
+
+if ($admin) {
+    $admin_id = (int) $admin['admin_id'];
+    $sql = "SELECT Orders.*, Pets.pet_name, Users.full_name AS user_name FROM Orders JOIN Pets ON Pets.pet_id=Orders.pet_id JOIN Users ON Users.user_id=Orders.user_id WHERE Pets.admin_id=$admin_id ORDER BY Orders.order_date DESC";
 } else {
+    $user_id = (int) $user['user_id'];
     $sql = "SELECT Orders.*, Pets.pet_name, Users.full_name AS user_name FROM Orders JOIN Pets ON Pets.pet_id=Orders.pet_id JOIN Users ON Users.user_id=Orders.user_id WHERE Orders.user_id=$user_id ORDER BY Orders.order_date DESC";
 }
 $result = mysqli_query($conn, $sql);
@@ -33,7 +40,7 @@ $result = mysqli_query($conn, $sql);
                 <tr class="border-t">
                     <td class="p-3"><?= h($row['pet_name']) ?></td><td class="p-3"><?= h($row['user_name']) ?></td><td class="p-3">$<?= h($row['total_amount']) ?></td>
                     <td class="p-3">
-                        <?php if ($user['role'] === 'admin'): ?>
+                        <?php if ($admin): ?>
                             <form method="POST" class="flex gap-2"><input type="hidden" name="order_id" value="<?= (int) $row['order_id'] ?>"><select name="order_status" class="border rounded px-2 py-1"><option <?= $row['order_status']==='pending'?'selected':'' ?> value="pending">pending</option><option <?= $row['order_status']==='completed'?'selected':'' ?> value="completed">completed</option><option <?= $row['order_status']==='cancelled'?'selected':'' ?> value="cancelled">cancelled</option></select><button class="bg-slate-800 text-white px-3 rounded">Save</button></form>
                         <?php else: ?><?= h($row['order_status']) ?><?php endif; ?>
                     </td>

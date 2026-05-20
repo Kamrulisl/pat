@@ -1,12 +1,11 @@
 <?php
 require_once "include/function.php";
-$user = requireLogin();
-
-if ($user['role'] === 'admin') {
+if (currentAdmin()) {
     header("Location: admin/index.php");
     exit();
 }
 
+$user = requireLogin();
 header("Location: user/index.php");
 exit();
 ?>

@@ -9,8 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pet_id'])) {
 
     if (!$pet || $pet['status'] !== 'available') {
         $message = "This pet is not available.";
-    } elseif ($user['role'] === 'admin') {
-        $message = "Admin cannot order products.";
     } else {
         $amount = (float) $pet['price'];
         mysqli_query($conn, "INSERT INTO Orders (user_id, pet_id, total_amount) VALUES ({$user['user_id']}, $pet_id, $amount)");

@@ -2,7 +2,7 @@
 require_once "../include/function.php";
 $user = currentUser();
 
-if (!$user || $user['role'] !== 'user') {
+if (!$user) {
     header("Location: ../login.php");
     exit();
 }

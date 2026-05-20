@@ -1,100 +1,84 @@
-# PetPals - Pet Selling Website
+# PetPals - Buy and Sell Pets
 
-PetPals is a buy and sell pet project with **2 panels only**:
+PetPals is a simple buy/sell pet project with two fully separate panels.
 
-- **Admin Panel**: Admin works as the seller. Admin can add pets/products, manage users, manage products and update orders.
-- **User Panel**: User works as the buyer. User can browse pets/products and place orders.
+- Admin Panel: admin logs in separately, adds pets for sale, manages users and orders.
+- User Panel: user logs in separately, browses pets, places orders and tracks orders.
 
-There is no separate seller account. Admin is the seller, user is the buyer.
+Admin and user can stay logged in at the same time in the same browser because they use separate session keys and separate database tables.
 
----
+## Setup
 
-## English Setup Process
-
-1. Keep this project folder inside `D:\PHP\htdocs\pat` or `xampp\htdocs\pat`.
-2. Start **Apache** and **MySQL** from XAMPP.
-3. Open phpMyAdmin: `http://localhost/phpmyadmin`.
+1. Keep the project in `D:\PHP\htdocs\pat`.
+2. Start Apache and MySQL from XAMPP.
+3. Open `http://localhost/phpmyadmin`.
 4. Import `database.sql`.
-5. Visit the project: `http://localhost/pat/`.
+5. Open `http://localhost/pat/`.
 
-## Bangla Setup Process
+## Login Links
 
-1. Project folder ta `D:\PHP\htdocs\pat` ba `xampp\htdocs\pat` er moddhe rakhun.
-2. XAMPP theke **Apache** and **MySQL** start korun.
-3. Browser e phpMyAdmin open korun: `http://localhost/phpmyadmin`.
-4. `database.sql` file import korun.
-5. Website run korun: `http://localhost/pat/`.
-
----
-
-## Login Options
-
-All demo accounts use password `123456`.
-
-| Panel | Role | Email | Password |
+| Panel | Link | Email | Password |
 | --- | --- | --- | --- |
-| Admin Panel | Admin as seller | `admin@petpals.com` | `123456` |
-| User Panel | User as buyer | `user@petpals.com` | `123456` |
+| Admin | `http://localhost/pat/admin/login.php` | `admin@petpals.com` | `123456` |
+| User | `http://localhost/pat/login.php` | `user@petpals.com` | `123456` |
 
-## Login Options Bangla
+## Browse Links
 
-Sob demo account er password `123456`.
+| Use | Link | What it shows |
+| --- | --- | --- |
+| Public/User Browse | `http://localhost/pat/browse.php` | Available pets and order button for logged-in users |
+| Admin Browse View | `http://localhost/pat/browse.php` | Available pets view, but admin cannot order |
+| Admin Add Pet | `http://localhost/pat/add-pet.php` | Admin-only pet/product add form |
+| User Panel | `http://localhost/pat/user/index.php` | User orders and quick browse link |
+| Admin Panel | `http://localhost/pat/admin/index.php` | Users, pets/products and order management |
 
-| Panel | Role | Email | Password |
-| --- | --- | --- | --- |
-| Admin Panel | Admin seller er kaj korbe | `admin@petpals.com` | `123456` |
-| User Panel | User buyer er kaj korbe | `user@petpals.com` | `123456` |
+## Bangla Summary
 
----
+- Admin alada login korbe: `admin/login.php`
+- User alada login korbe: `login.php`
+- Admin and user same browser e same time login thakte parbe
+- Admin pet add korbe and order manage korbe
+- User browse kore pet order korbe
+- Browse page user/admin dujoner jonno dekha jabe, but order korbe only user
 
-## Main Features
+## File Work List
 
-- Admin login
-- User registration and login
-- Admin can add products/pets
-- Admin can manage users
-- Admin can manage products/pets
-- Admin can update order status
-- User can browse products/pets
-- User can buy/order products/pets
-- Profile update
-- Password change
-- Updated SQL file with admin, user, categories and sample pets
+| File/Folder | Work |
+| --- | --- |
+| `index.php` | Home page with buy/sell pet context and panel links |
+| `login.php` | User login page |
+| `register.php` | User registration page |
+| `logout.php` | Logs out only the user session |
+| `dashboard.php` | Redirects logged-in admin/user to the correct panel |
+| `browse.php` | Shows available pets and lets logged-in users place orders |
+| `add-pet.php` | Admin-only form for adding pets/products |
+| `my-pets.php` | Admin-only product/pet listing page |
+| `orders.php` | User order view and admin order status update page |
+| `profile.php` | User profile update page |
+| `pass-change.php` | User password change page |
+| `database.sql` | Full database schema and demo data |
+| `admin/login.php` | Separate admin login page |
+| `admin/index.php` | Admin panel for users, pets/products and orders |
+| `admin/logout.php` | Logs out only the admin session |
+| `user/index.php` | User panel with order summary and browse link |
+| `include/connection.php` | Database connection and image upload helper |
+| `include/function.php` | Shared auth, session and data helper functions |
+| `include/header.php` | Shared top navigation |
+| `include/aside.php` | Shared side menu for root-level panel pages |
+| `include/footer.php` | Shared footer |
+| `uploads/` | Pet/user image upload folders and sample images |
 
-## Main Pages
+## Database Tables
 
-- `index.php`: Home page
-- `register.php`: User/buyer registration
-- `login.php`: Admin/user login
-- `dashboard.php`: Redirects users to the correct panel
-- `browse.php`: User product/pet browse and order page
-- `add-pet.php`: Admin product/pet add page
-- `my-pets.php`: Admin product list
-- `orders.php`: Admin/user order tracking
-- `profile.php`: Profile update
-- `pass-change.php`: Change password
-- `admin/index.php`: Admin panel
-- `user/index.php`: User panel
+| Table | Work |
+| --- | --- |
+| `Admins` | Stores admin login data separately |
+| `Users` | Stores user login/profile data separately |
+| `Categories` | Stores pet categories |
+| `Pets` | Stores pets/products added by admin |
+| `Orders` | Stores user orders and order status |
 
----
-
-## Database
-
-The updated database file is:
-
-```text
-database.sql
-```
-
-This SQL file creates:
-
-- `Users`
-- `Categories`
-- `Pets`
-- `Orders`
-It also inserts demo admin, demo user, categories and multiple sample pets/products added by admin.
-
-## Git Push Process
+## Git Push
 
 If Git shows dubious ownership, run this once:
 
@@ -102,40 +86,10 @@ If Git shows dubious ownership, run this once:
 git config --global --add safe.directory D:/PHP/htdocs/pat
 ```
 
-Then push:
+Then:
 
 ```powershell
 git add .
-git commit -m "Use admin as seller and user as buyer"
-git branch -M main
+git commit -m "Separate admin and user panels"
 git push -u origin main
-```
-
-If remote is missing:
-
-```powershell
-git remote add origin https://github.com/Kamrulisl/pat.git
-```
-
-## Git Push Process Bangla
-
-Jodi Git ownership error dey, ei command ekbar run korun:
-
-```powershell
-git config --global --add safe.directory D:/PHP/htdocs/pat
-```
-
-Tarpor push korun:
-
-```powershell
-git add .
-git commit -m "Use admin as seller and user as buyer"
-git branch -M main
-git push -u origin main
-```
-
-Remote na thakle:
-
-```powershell
-git remote add origin https://github.com/Kamrulisl/pat.git
 ```

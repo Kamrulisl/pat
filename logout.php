@@ -1,7 +1,6 @@
-<!-- logout.php -->
 <?php
 session_start();
-session_destroy();
+unset($_SESSION['user_id'], $_SESSION['email']);
 header("Location: index.php");
 exit();
 ?>

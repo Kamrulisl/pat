@@ -21,6 +21,18 @@ function currentUser() {
     return $result ? mysqli_fetch_assoc($result) : null;
 }
 
+function currentAdmin() {
+    global $conn;
+
+    if (empty($_SESSION['admin_id'])) {
+        return null;
+    }
+
+    $admin_id = (int) $_SESSION['admin_id'];
+    $result = mysqli_query($conn, "SELECT * FROM Admins WHERE admin_id=$admin_id LIMIT 1");
+    return $result ? mysqli_fetch_assoc($result) : null;
+}
+
 function requireLogin($role = null) {
     $user = currentUser();
 
@@ -29,23 +41,19 @@ function requireLogin($role = null) {
         exit();
     }
 
-    if ($role && $user['role'] !== $role) {
-        header("Location: dashboard.php");
-        exit();
-    }
-
     return $user;
 }
 
 function requireAdmin() {
-    $user = currentUser();
+    $admin = currentAdmin();
 
-    if (!$user || $user['role'] !== 'admin') {
-        header("Location: ../login.php");
+    if (!$admin) {
+        $loginPath = strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false ? 'login.php' : 'admin/login.php';
+        header("Location: $loginPath");
         exit();
     }
 
-    return $user;
+    return $admin;
 }
 
 function getAllCategories() {
@@ -60,10 +68,10 @@ function getAllCategories() {
 
 function getPets($where = "1=1") {
     global $conn;
-    $sql = "SELECT Pets.*, Categories.category_name, Users.full_name AS admin_name, Users.phone_number AS admin_phone
+    $sql = "SELECT Pets.*, Categories.category_name, Admins.full_name AS admin_name, Admins.phone_number AS admin_phone
             FROM Pets
             JOIN Categories ON Categories.category_id = Pets.category_id
-            JOIN Users ON Users.user_id = Pets.admin_id
+            JOIN Admins ON Admins.admin_id = Pets.admin_id
             WHERE $where
             ORDER BY Pets.created_at DESC";
     $result = mysqli_query($conn, $sql);
@@ -86,5 +94,12 @@ function changePassword($user_id, $new_password) {
     $user_id = (int) $user_id;
     $password_hash = md5($new_password);
     return mysqli_query($conn, "UPDATE Users SET password_hash='$password_hash' WHERE user_id=$user_id");
+}
+
+function changeAdminPassword($admin_id, $new_password) {
+    global $conn;
+    $admin_id = (int) $admin_id;
+    $password_hash = md5($new_password);
+    return mysqli_query($conn, "UPDATE Admins SET password_hash='$password_hash' WHERE admin_id=$admin_id");
 }
 ?>

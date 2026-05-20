@@ -5,8 +5,21 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS Pets;
 DROP TABLE IF EXISTS Categories;
+DROP TABLE IF EXISTS Admins;
 DROP TABLE IF EXISTS Users;
 SET FOREIGN_KEY_CHECKS = 1;
+
+CREATE TABLE Admins (
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(20),
+    profile_picture VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 CREATE TABLE Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -17,7 +30,6 @@ CREATE TABLE Users (
     phone_number VARCHAR(20),
     city VARCHAR(80),
     profile_picture VARCHAR(255),
-    role ENUM('user', 'admin') NOT NULL DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -43,7 +55,7 @@ CREATE TABLE Pets (
     status ENUM('available', 'sold', 'pending') DEFAULT 'available',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (admin_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (admin_id) REFERENCES Admins(admin_id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES Categories(category_id) ON DELETE CASCADE
 );
 
@@ -66,9 +78,11 @@ INSERT INTO Categories (category_name, description) VALUES
 ('Fish', 'Aquarium fish');
 
 -- Default password for all seed accounts is: 123456
-INSERT INTO Users (username, email, password_hash, full_name, phone_number, city, profile_picture, role) VALUES
-('admin', 'admin@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'PetPals Admin', '01700000000', 'Dhaka', 'admin.jpg', 'admin'),
-('user', 'user@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'Demo User', '01900000000', 'Dhaka', NULL, 'user');
+INSERT INTO Admins (username, email, password_hash, full_name, phone_number, profile_picture) VALUES
+('admin', 'admin@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'PetPals Admin', '01700000000', 'admin.jpg');
+
+INSERT INTO Users (username, email, password_hash, full_name, phone_number, city, profile_picture) VALUES
+('user', 'user@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'Demo User', '01900000000', 'Dhaka', NULL);
 
 INSERT INTO Pets (admin_id, category_id, pet_name, breed, age, gender, price, description, pet_image, status) VALUES
 (1, 1, 'Luna', 'Labrador', 6, 'female', 300.00, 'Friendly puppy ready for a loving home.', NULL, 'available'),

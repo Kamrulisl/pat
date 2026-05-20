@@ -1,7 +1,7 @@
 <?php
 require_once "include/function.php";
-$user = requireLogin('admin');
-$admin_id = (int) $user['user_id'];
+$admin = requireAdmin();
+$admin_id = (int) $admin['admin_id'];
 $pets = getPets("Pets.admin_id=$admin_id");
 ?>
 <!DOCTYPE html>

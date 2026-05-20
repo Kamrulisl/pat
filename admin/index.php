@@ -5,9 +5,7 @@ $admin = requireAdmin();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete_user'])) {
         $user_id = (int) $_POST['delete_user'];
-        if ($user_id !== (int) $admin['user_id']) {
-            mysqli_query($conn, "DELETE FROM Users WHERE user_id=$user_id");
-        }
+        mysqli_query($conn, "DELETE FROM Users WHERE user_id=$user_id");
     }
 
     if (isset($_POST['order_id'], $_POST['order_status'])) {
@@ -33,8 +31,8 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
 <body class="bg-slate-50 text-slate-800">
 <nav class="bg-slate-950 text-white">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <a class="text-2xl font-bold" href="../dashboard.php">PetPals Admin</a>
-        <div class="flex gap-4 text-sm"><a href="../dashboard.php">Dashboard</a><a href="../add-pet.php">Add Product</a><a href="../logout.php">Logout</a></div>
+        <a class="text-2xl font-bold" href="index.php">PetPals Admin</a>
+        <div class="flex gap-4 text-sm"><a href="index.php">Panel</a><a href="../browse.php">Browse</a><a href="../add-pet.php">Add Product</a><a href="logout.php">Logout</a></div>
     </div>
 </nav>
 <main class="max-w-7xl mx-auto px-4 py-8 space-y-8">
@@ -49,8 +47,8 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
     <section class="bg-white border rounded-lg p-5 overflow-x-auto">
         <h2 class="text-xl font-bold mb-4">Users</h2>
         <table class="w-full text-sm">
-            <thead class="bg-slate-100"><tr><th class="text-left p-3">Name</th><th class="text-left p-3">Email</th><th class="text-left p-3">Role</th><th class="text-left p-3">Action</th></tr></thead>
-            <tbody><?php mysqli_data_seek($users, 0); while ($users && $user = mysqli_fetch_assoc($users)): ?><tr class="border-t"><td class="p-3"><?= h($user['full_name']) ?></td><td class="p-3"><?= h($user['email']) ?></td><td class="p-3"><?= h($user['role']) ?></td><td class="p-3"><form method="POST"><button class="text-red-600" name="delete_user" value="<?= (int) $user['user_id'] ?>" onclick="return confirm('Delete user?')">Delete</button></form></td></tr><?php endwhile; ?></tbody>
+            <thead class="bg-slate-100"><tr><th class="text-left p-3">Name</th><th class="text-left p-3">Email</th><th class="text-left p-3">Phone</th><th class="text-left p-3">Action</th></tr></thead>
+            <tbody><?php mysqli_data_seek($users, 0); while ($user = mysqli_fetch_assoc($users)): ?><tr class="border-t"><td class="p-3"><?= h($user['full_name']) ?></td><td class="p-3"><?= h($user['email']) ?></td><td class="p-3"><?= h($user['phone_number']) ?></td><td class="p-3"><form method="POST"><button class="text-red-600" name="delete_user" value="<?= (int) $user['user_id'] ?>" onclick="return confirm('Delete user?')">Delete</button></form></td></tr><?php endwhile; ?></tbody>
         </table>
     </section>
     <section class="bg-white border rounded-lg p-5 overflow-x-auto">

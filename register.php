@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm_password = $_POST['confirm_password'] ?? '';
     $full_name = mysqli_real_escape_string($conn, trim($_POST['full_name'] ?? ''));
     $phone_number = mysqli_real_escape_string($conn, trim($_POST['phone_number'] ?? ''));
-    $role = 'user';
     $city = mysqli_real_escape_string($conn, trim($_POST['city'] ?? ''));
 
     if ($password !== $confirm_password) {
@@ -21,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             : null;
         $password_hash = md5($password);
 
-        $sql = "INSERT INTO Users (username, email, password_hash, full_name, phone_number, profile_picture, role, city)
-                VALUES ('$username', '$email', '$password_hash', '$full_name', '$phone_number', '$profile_picture', '$role', '$city')";
+        $sql = "INSERT INTO Users (username, email, password_hash, full_name, phone_number, profile_picture, city)
+                VALUES ('$username', '$email', '$password_hash', '$full_name', '$phone_number', '$profile_picture', '$city')";
 
         if (mysqli_query($conn, $sql)) {
             header("Location: login.php?registered=1");
@@ -47,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main class="max-w-7xl mx-auto px-4 py-10">
     <div class="max-w-4xl mx-auto bg-white border border-slate-200 rounded-lg p-8 shadow-sm">
         <h1 class="text-3xl font-bold mb-2">Create Account</h1>
-        <p class="text-slate-500 mb-6">Register as a user/buyer and start using PetPals.</p>
+        <p class="text-slate-500 mb-6">Create a user account to buy pets.</p>
         <?php if ($error): ?>
             <div class="bg-red-50 text-red-700 border border-red-200 rounded-md px-4 py-3 mb-5"><?= h($error) ?></div>
         <?php endif; ?>
@@ -89,9 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div>
                 <label class="block font-medium mb-2">Profile Picture</label>
                 <input class="w-full border rounded-md px-4 py-3 bg-white" name="profile_picture" type="file" accept="image/*">
-            </div>
-            <div class="md:col-span-2 bg-blue-50 border border-blue-200 text-blue-800 rounded-md px-4 py-3">
-                Account type: User / Buyer
             </div>
             <button class="md:col-span-2 bg-emerald-600 text-white font-bold py-3 rounded-md hover:bg-emerald-700">Create Account</button>
         </form>
