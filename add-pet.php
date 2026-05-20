@@ -9,7 +9,7 @@ $categories = getAllCategories();
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $seller_id = (int) $user['user_id'];
+    $admin_id = (int) $user['user_id'];
     $category_id = (int) $_POST['category_id'];
     $pet_name = mysqli_real_escape_string($conn, trim($_POST['pet_name']));
     $breed = mysqli_real_escape_string($conn, trim($_POST['breed']));
@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = mysqli_real_escape_string($conn, trim($_POST['description']));
     $pet_image = !empty($_FILES['pet_image']['name']) ? processImageUpload($_FILES['pet_image'], "uploads/doc/") : null;
 
-    $sql = "INSERT INTO Pets (seller_id, category_id, pet_name, breed, age, gender, price, description, pet_image)
-            VALUES ($seller_id, $category_id, '$pet_name', '$breed', $age, '$gender', $price, '$description', '$pet_image')";
+    $sql = "INSERT INTO Pets (admin_id, category_id, pet_name, breed, age, gender, price, description, pet_image)
+            VALUES ($admin_id, $category_id, '$pet_name', '$breed', $age, '$gender', $price, '$description', '$pet_image')";
 
     if (mysqli_query($conn, $sql)) {
         header("Location: admin/index.php");

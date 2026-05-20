@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $users = mysqli_query($conn, "SELECT * FROM Users ORDER BY created_at DESC");
 $pets = getPets("1=1");
-$orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name AS buyer_name FROM Orders JOIN Pets ON Pets.pet_id=Orders.pet_id JOIN Users ON Users.user_id=Orders.buyer_id ORDER BY Orders.order_date DESC");
+$orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name AS user_name FROM Orders JOIN Pets ON Pets.pet_id=Orders.pet_id JOIN Users ON Users.user_id=Orders.user_id ORDER BY Orders.order_date DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,14 +60,14 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
         </div>
         <table class="w-full text-sm">
             <thead class="bg-slate-100"><tr><th class="text-left p-3">Pet</th><th class="text-left p-3">Added By</th><th class="text-left p-3">Category</th><th class="text-left p-3">Price</th><th class="text-left p-3">Status</th></tr></thead>
-            <tbody><?php foreach ($pets as $pet): ?><tr class="border-t"><td class="p-3"><?= h($pet['pet_name']) ?></td><td class="p-3"><?= h($pet['seller_name']) ?></td><td class="p-3"><?= h($pet['category_name']) ?></td><td class="p-3">$<?= h($pet['price']) ?></td><td class="p-3"><?= h($pet['status']) ?></td></tr><?php endforeach; ?></tbody>
+            <tbody><?php foreach ($pets as $pet): ?><tr class="border-t"><td class="p-3"><?= h($pet['pet_name']) ?></td><td class="p-3"><?= h($pet['admin_name']) ?></td><td class="p-3"><?= h($pet['category_name']) ?></td><td class="p-3">$<?= h($pet['price']) ?></td><td class="p-3"><?= h($pet['status']) ?></td></tr><?php endforeach; ?></tbody>
         </table>
     </section>
     <section class="bg-white border rounded-lg p-5 overflow-x-auto">
         <h2 class="text-xl font-bold mb-4">Orders</h2>
         <table class="w-full text-sm">
-            <thead class="bg-slate-100"><tr><th class="text-left p-3">Pet</th><th class="text-left p-3">Buyer</th><th class="text-left p-3">Amount</th><th class="text-left p-3">Status</th></tr></thead>
-            <tbody><?php while ($orders && $order = mysqli_fetch_assoc($orders)): ?><tr class="border-t"><td class="p-3"><?= h($order['pet_name']) ?></td><td class="p-3"><?= h($order['buyer_name']) ?></td><td class="p-3">$<?= h($order['total_amount']) ?></td><td class="p-3"><form method="POST" class="flex gap-2"><input type="hidden" name="order_id" value="<?= (int) $order['order_id'] ?>"><select name="order_status" class="border rounded px-2 py-1"><option <?= $order['order_status']==='pending'?'selected':'' ?> value="pending">pending</option><option <?= $order['order_status']==='completed'?'selected':'' ?> value="completed">completed</option><option <?= $order['order_status']==='cancelled'?'selected':'' ?> value="cancelled">cancelled</option></select><button class="bg-slate-800 text-white px-3 rounded">Save</button></form></td></tr><?php endwhile; ?></tbody>
+            <thead class="bg-slate-100"><tr><th class="text-left p-3">Pet</th><th class="text-left p-3">User</th><th class="text-left p-3">Amount</th><th class="text-left p-3">Status</th></tr></thead>
+            <tbody><?php while ($orders && $order = mysqli_fetch_assoc($orders)): ?><tr class="border-t"><td class="p-3"><?= h($order['pet_name']) ?></td><td class="p-3"><?= h($order['user_name']) ?></td><td class="p-3">$<?= h($order['total_amount']) ?></td><td class="p-3"><form method="POST" class="flex gap-2"><input type="hidden" name="order_id" value="<?= (int) $order['order_id'] ?>"><select name="order_status" class="border rounded px-2 py-1"><option <?= $order['order_status']==='pending'?'selected':'' ?> value="pending">pending</option><option <?= $order['order_status']==='completed'?'selected':'' ?> value="completed">completed</option><option <?= $order['order_status']==='cancelled'?'selected':'' ?> value="cancelled">cancelled</option></select><button class="bg-slate-800 text-white px-3 rounded">Save</button></form></td></tr><?php endwhile; ?></tbody>
         </table>
     </section>
 </main>

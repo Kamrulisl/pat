@@ -9,11 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pet_id'])) {
 
     if (!$pet || $pet['status'] !== 'available') {
         $message = "This pet is not available.";
-    } elseif ((int) $pet['seller_id'] === (int) $user['user_id']) {
-        $message = "You cannot buy your own pet.";
+    } elseif ($user['role'] === 'admin') {
+        $message = "Admin cannot order products.";
     } else {
         $amount = (float) $pet['price'];
-        mysqli_query($conn, "INSERT INTO Orders (buyer_id, pet_id, total_amount) VALUES ({$user['user_id']}, $pet_id, $amount)");
+        mysqli_query($conn, "INSERT INTO Orders (user_id, pet_id, total_amount) VALUES ({$user['user_id']}, $pet_id, $amount)");
         mysqli_query($conn, "UPDATE Pets SET status='pending' WHERE pet_id=$pet_id");
         $message = "Order placed successfully.";
     }
@@ -65,7 +65,7 @@ $categories = getAllCategories();
                     </div>
                     <p class="text-sm text-slate-500 mb-3"><?= h($pet['category_name']) ?> &bull; <?= h($pet['breed']) ?> &bull; <?= h($pet['age']) ?> months &bull; <?= h($pet['gender']) ?></p>
                     <p class="text-slate-600 mb-4"><?= h($pet['description']) ?></p>
-                    <p class="text-sm mb-4"><strong>Added by Admin:</strong> <?= h($pet['seller_name']) ?> <?= $pet['seller_phone'] ? '(' . h($pet['seller_phone']) . ')' : '' ?></p>
+                    <p class="text-sm mb-4"><strong>Added by Admin:</strong> <?= h($pet['admin_name']) ?> <?= $pet['admin_phone'] ? '(' . h($pet['admin_phone']) . ')' : '' ?></p>
                     <form method="POST">
                         <input type="hidden" name="pet_id" value="<?= (int) $pet['pet_id'] ?>">
                         <button class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Order This Pet</button>

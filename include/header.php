@@ -14,6 +14,8 @@
                     <li><a href="pass-change.php" class="hover:text-blue-600">Change Password</a></li>
                     <?php if ($authUser['role'] === 'admin'): ?>
                         <li><a href="admin/index.php" class="hover:text-blue-600">Admin</a></li>
+                    <?php else: ?>
+                        <li><a href="user/index.php" class="hover:text-blue-600">User Panel</a></li>
                     <?php endif; ?>
                     <li><a href="logout.php" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Logout</a></li>
                 <?php else: ?>

@@ -60,10 +60,10 @@ function getAllCategories() {
 
 function getPets($where = "1=1") {
     global $conn;
-    $sql = "SELECT Pets.*, Categories.category_name, Users.full_name AS seller_name, Users.phone_number AS seller_phone
+    $sql = "SELECT Pets.*, Categories.category_name, Users.full_name AS admin_name, Users.phone_number AS admin_phone
             FROM Pets
             JOIN Categories ON Categories.category_id = Pets.category_id
-            JOIN Users ON Users.user_id = Pets.seller_id
+            JOIN Users ON Users.user_id = Pets.admin_id
             WHERE $where
             ORDER BY Pets.created_at DESC";
     $result = mysqli_query($conn, $sql);

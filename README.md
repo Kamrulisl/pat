@@ -1,6 +1,6 @@
 # PetPals - Pet Selling Website
 
-PetPals is a PHP/MySQL project for XAMPP with **2 panels only**:
+PetPals is a buy and sell pet project with **2 panels only**:
 
 - **Admin Panel**: Admin works as the seller. Admin can add pets/products, manage users, manage products and update orders.
 - **User Panel**: User works as the buyer. User can browse pets/products and place orders.
@@ -66,7 +66,7 @@ Sob demo account er password `123456`.
 - `index.php`: Home page
 - `register.php`: User/buyer registration
 - `login.php`: Admin/user login
-- `dashboard.php`: Role based dashboard
+- `dashboard.php`: Redirects users to the correct panel
 - `browse.php`: User product/pet browse and order page
 - `add-pet.php`: Admin product/pet add page
 - `my-pets.php`: Admin product list
@@ -74,6 +74,7 @@ Sob demo account er password `123456`.
 - `profile.php`: Profile update
 - `pass-change.php`: Change password
 - `admin/index.php`: Admin panel
+- `user/index.php`: User panel
 
 ---
 
@@ -91,9 +92,6 @@ This SQL file creates:
 - `Categories`
 - `Pets`
 - `Orders`
-- `Reviews`
-- `Messages`
-
 It also inserts demo admin, demo user, categories and multiple sample pets/products added by admin.
 
 ## Git Push Process

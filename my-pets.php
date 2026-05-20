@@ -1,8 +1,8 @@
 <?php
 require_once "include/function.php";
 $user = requireLogin('admin');
-$seller_id = (int) $user['user_id'];
-$pets = getPets("Pets.seller_id=$seller_id");
+$admin_id = (int) $user['user_id'];
+$pets = getPets("Pets.admin_id=$admin_id");
 ?>
 <!DOCTYPE html>
 <html lang="en">
