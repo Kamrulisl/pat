@@ -32,7 +32,7 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
 <nav class="bg-slate-950 text-white">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <a class="text-2xl font-bold" href="index.php">PetPals Admin</a>
-        <div class="flex gap-4 text-sm"><a href="index.php">Panel</a><a href="../browse.php">Browse</a><a href="../add-pet.php">Add Product</a><a href="logout.php">Logout</a></div>
+        <div class="flex gap-4 text-sm"><a href="index.php">Panel</a><a href="../browse.php?panel=admin">Browse</a><a href="../add-pet.php">Add Product</a><a href="../orders.php?panel=admin">Orders</a><a href="logout.php">Logout</a></div>
     </div>
 </nav>
 <main class="max-w-7xl mx-auto px-4 py-8 grid lg:grid-cols-[240px_1fr] gap-6">

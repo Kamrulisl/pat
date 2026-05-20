@@ -29,8 +29,8 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name
     <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
         <a class="text-2xl font-bold" href="../index.php"><span class="text-blue-600">Pet</span><span class="text-emerald-600">Pals</span></a>
         <div class="flex gap-4 text-sm font-medium">
-            <a href="../browse.php">Browse Pets</a>
-            <a href="../orders.php">Orders</a>
+            <a href="../browse.php?panel=user">Browse Pets</a>
+            <a href="../orders.php?panel=user">Orders</a>
             <a href="../profile.php">Profile</a>
             <a href="../logout.php" class="text-red-600">Logout</a>
         </div>
@@ -50,7 +50,7 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name
     <section class="bg-white border rounded-lg p-5">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
             <h2 class="text-xl font-bold">My Orders</h2>
-            <a class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm" href="../browse.php">Browse Pets</a>
+            <a class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm" href="../browse.php?panel=user">Browse Pets</a>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">

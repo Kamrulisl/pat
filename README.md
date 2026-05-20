@@ -26,11 +26,47 @@ Admin and user can stay logged in at the same time in the same browser because t
 
 | Use | Link | What it shows |
 | --- | --- | --- |
+| Home | `http://localhost/pat/` | Buy/sell pet landing page |
 | Public/User Browse | `http://localhost/pat/browse.php` | Available pets and order button for logged-in users |
 | Admin Browse View | `http://localhost/pat/browse.php` | Available pets view, but admin cannot order |
 | Admin Add Pet | `http://localhost/pat/add-pet.php` | Admin-only pet/product add form |
 | User Panel | `http://localhost/pat/user/index.php` | User orders and quick browse link |
 | Admin Panel | `http://localhost/pat/admin/index.php` | Users, pets/products and order management |
+
+## Browser Page Links
+
+| Page | Browser Link |
+| --- | --- |
+| Home | `http://localhost/pat/` |
+| User Login | `http://localhost/pat/login.php` |
+| User Register | `http://localhost/pat/register.php` |
+| User Panel | `http://localhost/pat/user/index.php` |
+| Admin Login | `http://localhost/pat/admin/login.php` |
+| Admin Panel | `http://localhost/pat/admin/index.php` |
+| Browse Pets | `http://localhost/pat/browse.php` |
+| Add Pet/Product | `http://localhost/pat/add-pet.php` |
+| Admin Products | `http://localhost/pat/my-pets.php` |
+| Orders | `http://localhost/pat/orders.php` |
+| Profile | `http://localhost/pat/profile.php` |
+| Change Password | `http://localhost/pat/pass-change.php` |
+
+## Screenshots
+
+### Home Page
+
+![Home page](screenshots/home.png)
+
+### Browse Pets
+
+![Browse pets](screenshots/browse.png)
+
+### Admin Login
+
+![Admin login](screenshots/admin-login.png)
+
+### User Login
+
+![User login](screenshots/user-login.png)
 
 ## Bangla Summary
 
@@ -78,7 +114,7 @@ Admin and user can stay logged in at the same time in the same browser because t
 | `Pets` | Stores pets/products added by admin |
 | `Orders` | Stores user orders and order status |
 
-## Git Push
+## Git Setup and Push
 
 If Git shows dubious ownership, run this once:
 
@@ -86,10 +122,26 @@ If Git shows dubious ownership, run this once:
 git config --global --add safe.directory D:/PHP/htdocs/pat
 ```
 
-Then:
+First time setup:
+
+```powershell
+git init
+git remote add origin https://github.com/Kamrulisl/pat.git
+git branch -M main
+```
+
+Daily update/push:
 
 ```powershell
 git add .
-git commit -m "Separate admin and user panels"
+git commit -m "Update project"
 git push -u origin main
+```
+
+Useful Git commands:
+
+```powershell
+git status
+git log --oneline -5
+git remote -v
 ```

@@ -1,8 +1,13 @@
 <?php
 require_once "include/function.php";
 $message = "";
+$panel = $_GET['panel'] ?? '';
+$adminContext = $panel === 'admin';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pet_id'])) {
+    if ($adminContext) {
+        $message = "Admin can browse pets, but only users can place orders.";
+    } else {
     $user = requireLogin();
     $pet_id = (int) $_POST['pet_id'];
     $pet = getPetById($pet_id);
@@ -14,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pet_id'])) {
         mysqli_query($conn, "INSERT INTO Orders (user_id, pet_id, total_amount) VALUES ({$user['user_id']}, $pet_id, $amount)");
         mysqli_query($conn, "UPDATE Pets SET status='pending' WHERE pet_id=$pet_id");
         $message = "Order placed successfully.";
+    }
     }
 }
 
@@ -64,10 +70,14 @@ $categories = getAllCategories();
                     <p class="text-sm text-slate-500 mb-3"><?= h($pet['category_name']) ?> &bull; <?= h($pet['breed']) ?> &bull; <?= h($pet['age']) ?> months &bull; <?= h($pet['gender']) ?></p>
                     <p class="text-slate-600 mb-4"><?= h($pet['description']) ?></p>
                     <p class="text-sm mb-4"><strong>Added by Admin:</strong> <?= h($pet['admin_name']) ?> <?= $pet['admin_phone'] ? '(' . h($pet['admin_phone']) . ')' : '' ?></p>
-                    <form method="POST">
-                        <input type="hidden" name="pet_id" value="<?= (int) $pet['pet_id'] ?>">
-                        <button class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Order This Pet</button>
-                    </form>
+                    <?php if ($adminContext): ?>
+                        <div class="w-full bg-slate-100 text-slate-600 text-center py-2 rounded-md">Admin view only</div>
+                    <?php else: ?>
+                        <form method="POST">
+                            <input type="hidden" name="pet_id" value="<?= (int) $pet['pet_id'] ?>">
+                            <button class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Order This Pet</button>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </article>
         <?php endforeach; ?>
