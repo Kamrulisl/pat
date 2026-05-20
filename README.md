@@ -7,13 +7,84 @@ PetPals is a simple buy/sell pet project with two fully separate panels.
 
 Admin and user can stay logged in at the same time in the same browser because they use separate session keys and separate database tables.
 
-## Setup
+## Universal Setup Instructions
 
-1. Keep the project in `D:\PHP\htdocs\pat`.
-2. Start Apache and MySQL from XAMPP.
-3. Open `http://localhost/phpmyadmin`.
-4. Import `database.sql`.
-5. Open `http://localhost/pat/`.
+### Requirements
+
+- PHP 8 or newer
+- MySQL/MariaDB
+- Apache server
+- phpMyAdmin or MySQL CLI
+- XAMPP/WAMP/MAMP/LAMP is recommended for local setup
+
+### Setup With XAMPP/WAMP/MAMP
+
+1. Download or clone this project.
+2. Put the project folder inside your local web server document root.
+
+   Common document root examples:
+
+   | Environment | Example path |
+   | --- | --- |
+   | XAMPP Windows | `C:\xampp\htdocs\pat` |
+   | XAMPP custom drive | `D:\xampp\htdocs\pat` or `D:\PHP\htdocs\pat` |
+   | WAMP Windows | `C:\wamp64\www\pat` |
+   | MAMP macOS | `/Applications/MAMP/htdocs/pat` |
+   | Linux Apache | `/var/www/html/pat` |
+
+3. Start Apache and MySQL from your local server control panel.
+4. Open phpMyAdmin in your browser:
+
+   ```text
+   http://localhost/phpmyadmin
+   ```
+
+5. Import the `database.sql` file.
+6. Open the project:
+
+   ```text
+   http://localhost/pat/
+   ```
+
+### Setup With MySQL CLI
+
+From the project folder, import the database:
+
+```bash
+mysql -u root -p < database.sql
+```
+
+If your local MySQL root user has no password:
+
+```bash
+mysql -u root < database.sql
+```
+
+Then open:
+
+```text
+http://localhost/pat/
+```
+
+### Database Connection
+
+Default database connection is in `include/connection.php`:
+
+```php
+$conn = mysqli_connect("localhost", "root", "", "PetSelling");
+```
+
+If your MySQL username/password is different, update that file.
+
+## Bangla Setup Instructions
+
+1. Project folder ta apnar local server-er document root e rakhun.
+   Example: `xampp/htdocs/pat`, `wamp64/www/pat`, or `MAMP/htdocs/pat`.
+2. Apache and MySQL start korun.
+3. Browser e `http://localhost/phpmyadmin` open korun.
+4. `database.sql` import korun.
+5. Browser e `http://localhost/pat/` open korun.
+6. MySQL password thakle `include/connection.php` file e password update korun.
 
 ## Login Links
 
@@ -126,17 +197,17 @@ Admin and user can stay logged in at the same time in the same browser because t
 
 ## Git Setup and Push
 
-If Git shows dubious ownership, run this once:
+If Git shows dubious ownership, replace the path with your own project path and run this once:
 
 ```powershell
-git config --global --add safe.directory D:/PHP/htdocs/pat
+git config --global --add safe.directory /path/to/your/pat
 ```
 
 First time setup:
 
 ```powershell
 git init
-git remote add origin https://github.com/Kamrulisl/pat.git
+git remote add origin YOUR_REPOSITORY_URL
 git branch -M main
 ```
 
