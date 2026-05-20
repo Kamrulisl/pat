@@ -4,9 +4,10 @@
     <ul class="space-y-3 text-sm">
         <li><a href="dashboard.php" class="block hover:text-emerald-300"><i class="fas fa-gauge mr-2"></i>Dashboard</a></li>
         <li><a href="browse.php" class="block hover:text-emerald-300"><i class="fas fa-paw mr-2"></i>Browse Pets</a></li>
-        <?php if ($authUser && $authUser['role'] === 'seller'): ?>
-            <li><a href="add-pet.php" class="block hover:text-emerald-300"><i class="fas fa-plus mr-2"></i>Add Pet</a></li>
-            <li><a href="my-pets.php" class="block hover:text-emerald-300"><i class="fas fa-list mr-2"></i>My Pets</a></li>
+        <?php if ($authUser && $authUser['role'] === 'admin'): ?>
+            <li><a href="admin/index.php" class="block hover:text-emerald-300"><i class="fas fa-shield-halved mr-2"></i>Admin Panel</a></li>
+            <li><a href="add-pet.php" class="block hover:text-emerald-300"><i class="fas fa-plus mr-2"></i>Add Product</a></li>
+            <li><a href="my-pets.php" class="block hover:text-emerald-300"><i class="fas fa-list mr-2"></i>Admin Products</a></li>
         <?php endif; ?>
         <?php if ($authUser): ?>
             <li><a href="orders.php" class="block hover:text-emerald-300"><i class="fas fa-receipt mr-2"></i>Orders</a></li>

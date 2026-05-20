@@ -19,7 +19,7 @@ CREATE TABLE Users (
     phone_number VARCHAR(20),
     city VARCHAR(80),
     profile_picture VARCHAR(255),
-    role ENUM('buyer', 'seller', 'admin') NOT NULL DEFAULT 'buyer',
+    role ENUM('user', 'admin') NOT NULL DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -92,13 +92,12 @@ INSERT INTO Categories (category_name, description) VALUES
 -- Default password for all seed accounts is: 123456
 INSERT INTO Users (username, email, password_hash, full_name, phone_number, city, profile_picture, role) VALUES
 ('admin', 'admin@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'PetPals Admin', '01700000000', 'Dhaka', 'admin.jpg', 'admin'),
-('seller', 'seller@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'Demo Seller', '01800000000', 'Dhaka', NULL, 'seller'),
-('buyer', 'buyer@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'Demo Buyer', '01900000000', 'Dhaka', NULL, 'buyer');
+('user', 'user@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'Demo User', '01900000000', 'Dhaka', NULL, 'user');
 
 INSERT INTO Pets (seller_id, category_id, pet_name, breed, age, gender, price, description, pet_image, status) VALUES
 (1, 1, 'Admin Special Puppy', 'Labrador', 6, 'female', 300.00, 'Admin listed sample product for buyer testing.', NULL, 'available'),
-(2, 1, 'Max', 'Golden Retriever', 8, 'male', 350.00, 'Healthy, vaccinated and friendly puppy.', NULL, 'available'),
-(2, 2, 'Milo', 'Persian', 5, 'male', 220.00, 'Calm kitten, litter trained and playful.', NULL, 'available'),
-(2, 3, 'Rio', 'Budgerigar', 3, 'male', 45.00, 'Colorful bird with starter cage and food.', NULL, 'available'),
-(2, 4, 'Snow', 'Mini Lop', 4, 'female', 80.00, 'Soft white rabbit with starter food pack.', NULL, 'available'),
-(2, 5, 'Goldie Pack', 'Goldfish', 2, 'female', 25.00, 'Small aquarium fish pack for beginners.', NULL, 'available');
+(1, 1, 'Max', 'Golden Retriever', 8, 'male', 350.00, 'Healthy, vaccinated and friendly puppy.', NULL, 'available'),
+(1, 2, 'Milo', 'Persian', 5, 'male', 220.00, 'Calm kitten, litter trained and playful.', NULL, 'available'),
+(1, 3, 'Rio', 'Budgerigar', 3, 'male', 45.00, 'Colorful bird with starter cage and food.', NULL, 'available'),
+(1, 4, 'Snow', 'Mini Lop', 4, 'female', 80.00, 'Soft white rabbit with starter food pack.', NULL, 'available'),
+(1, 5, 'Goldie Pack', 'Goldfish', 2, 'female', 25.00, 'Small aquarium fish pack for beginners.', NULL, 'available');

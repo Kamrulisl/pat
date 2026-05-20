@@ -63,9 +63,9 @@ $categories = getAllCategories();
                         <h2 class="text-xl font-bold"><?= h($pet['pet_name']) ?></h2>
                         <span class="font-bold text-emerald-700">$<?= h($pet['price']) ?></span>
                     </div>
-                    <p class="text-sm text-slate-500 mb-3"><?= h($pet['category_name']) ?> • <?= h($pet['breed']) ?> • <?= h($pet['age']) ?> months • <?= h($pet['gender']) ?></p>
+                    <p class="text-sm text-slate-500 mb-3"><?= h($pet['category_name']) ?> &bull; <?= h($pet['breed']) ?> &bull; <?= h($pet['age']) ?> months &bull; <?= h($pet['gender']) ?></p>
                     <p class="text-slate-600 mb-4"><?= h($pet['description']) ?></p>
-                    <p class="text-sm mb-4"><strong>Seller:</strong> <?= h($pet['seller_name']) ?> <?= $pet['seller_phone'] ? '(' . h($pet['seller_phone']) . ')' : '' ?></p>
+                    <p class="text-sm mb-4"><strong>Added by Admin:</strong> <?= h($pet['seller_name']) ?> <?= $pet['seller_phone'] ? '(' . h($pet['seller_phone']) . ')' : '' ?></p>
                     <form method="POST">
                         <input type="hidden" name="pet_id" value="<?= (int) $pet['pet_id'] ?>">
                         <button class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Order This Pet</button>

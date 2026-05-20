@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['order_id'], $_POST['order_status'])) {
         $order_id = (int) $_POST['order_id'];
         $status = in_array($_POST['order_status'], ['pending', 'completed', 'cancelled'], true) ? $_POST['order_status'] : 'pending';
-        mysqli_query($conn, "UPDATE Orders SET order_status='$status' WHERE order_id=$order_id");
+        mysqli_query($conn, "UPDATE Orders JOIN Pets ON Pets.pet_id=Orders.pet_id SET Orders.order_status='$status', Pets.status='" . ($status === 'completed' ? 'sold' : ($status === 'cancelled' ? 'available' : 'pending')) . "' WHERE Orders.order_id=$order_id");
     }
 }
 
@@ -59,7 +59,7 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
             <a class="bg-emerald-600 text-white px-4 py-2 rounded-md text-sm" href="../add-pet.php">Add Product</a>
         </div>
         <table class="w-full text-sm">
-            <thead class="bg-slate-100"><tr><th class="text-left p-3">Pet</th><th class="text-left p-3">Seller</th><th class="text-left p-3">Category</th><th class="text-left p-3">Price</th><th class="text-left p-3">Status</th></tr></thead>
+            <thead class="bg-slate-100"><tr><th class="text-left p-3">Pet</th><th class="text-left p-3">Added By</th><th class="text-left p-3">Category</th><th class="text-left p-3">Price</th><th class="text-left p-3">Status</th></tr></thead>
             <tbody><?php foreach ($pets as $pet): ?><tr class="border-t"><td class="p-3"><?= h($pet['pet_name']) ?></td><td class="p-3"><?= h($pet['seller_name']) ?></td><td class="p-3"><?= h($pet['category_name']) ?></td><td class="p-3">$<?= h($pet['price']) ?></td><td class="p-3"><?= h($pet['status']) ?></td></tr><?php endforeach; ?></tbody>
         </table>
     </section>

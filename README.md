@@ -1,11 +1,11 @@
 # PetPals - Pet Selling Website
 
-PetPals is a PHP/MySQL project for XAMPP. It has two working panels:
+PetPals is a PHP/MySQL project for XAMPP with **2 panels only**:
 
-- **Admin Panel**: manage users, products/pets and orders. Admin can also add products.
-- **Seller Panel**: seller can add products/pets, view own listings and manage orders.
+- **Admin Panel**: Admin works as the seller. Admin can add pets/products, manage users, manage products and update orders.
+- **User Panel**: User works as the buyer. User can browse pets/products and place orders.
 
-Buyers can register/login, browse products/pets and place orders.
+There is no separate seller account. Admin is the seller, user is the buyer.
 
 ---
 
@@ -14,7 +14,7 @@ Buyers can register/login, browse products/pets and place orders.
 1. Keep this project folder inside `D:\PHP\htdocs\pat` or `xampp\htdocs\pat`.
 2. Start **Apache** and **MySQL** from XAMPP.
 3. Open phpMyAdmin: `http://localhost/phpmyadmin`.
-4. Create/import database by importing `database.sql`.
+4. Import `database.sql`.
 5. Visit the project: `http://localhost/pat/`.
 
 ## Bangla Setup Process
@@ -31,52 +31,49 @@ Buyers can register/login, browse products/pets and place orders.
 
 All demo accounts use password `123456`.
 
-| Role | Email | Password | Panel |
+| Panel | Role | Email | Password |
 | --- | --- | --- | --- |
-| Admin | `admin@petpals.com` | `123456` | `admin/index.php` |
-| Seller | `seller@petpals.com` | `123456` | `seller/index.php` |
-| Buyer | `buyer@petpals.com` | `123456` | `browse.php` |
+| Admin Panel | Admin as seller | `admin@petpals.com` | `123456` |
+| User Panel | User as buyer | `user@petpals.com` | `123456` |
 
 ## Login Options Bangla
 
 Sob demo account er password `123456`.
 
-| Role | Email | Password | Kaj |
+| Panel | Role | Email | Password |
 | --- | --- | --- | --- |
-| Admin | `admin@petpals.com` | `123456` | User, product/pet, order manage korbe and product add korte parbe |
-| Seller | `seller@petpals.com` | `123456` | Product/pet add korbe, nijer listing and order manage korbe |
-| Buyer | `buyer@petpals.com` | `123456` | Product/pet browse kore buy/order korbe |
+| Admin Panel | Admin seller er kaj korbe | `admin@petpals.com` | `123456` |
+| User Panel | User buyer er kaj korbe | `user@petpals.com` | `123456` |
 
 ---
 
 ## Main Features
 
-- Buyer registration and login
-- Seller registration and login
-- Admin login from the same login page
-- Product/pet add with image upload
-- Product/pet category selection
-- Buyer order system
-- Seller order status update
-- Admin user/product/order management
+- Admin login
+- User registration and login
+- Admin can add products/pets
+- Admin can manage users
+- Admin can manage products/pets
+- Admin can update order status
+- User can browse products/pets
+- User can buy/order products/pets
 - Profile update
 - Password change
-- Updated SQL file with sample users, categories and products
+- Updated SQL file with admin, user, categories and sample pets
 
 ## Main Pages
 
 - `index.php`: Home page
-- `register.php`: Buyer/seller registration with picture, radio and select inputs
-- `login.php`: Admin/seller/buyer login
+- `register.php`: User/buyer registration
+- `login.php`: Admin/user login
 - `dashboard.php`: Role based dashboard
-- `browse.php`: Buyer product/pet browse and order page
-- `add-pet.php`: Admin/seller product add page
-- `my-pets.php`: Seller product list
-- `orders.php`: Buyer/seller order tracking
+- `browse.php`: User product/pet browse and order page
+- `add-pet.php`: Admin product/pet add page
+- `my-pets.php`: Admin product list
+- `orders.php`: Admin/user order tracking
 - `profile.php`: Profile update
 - `pass-change.php`: Change password
 - `admin/index.php`: Admin panel
-- `seller/index.php`: Seller panel
 
 ---
 
@@ -97,7 +94,7 @@ This SQL file creates:
 - `Reviews`
 - `Messages`
 
-It also inserts demo admin, seller, buyer, categories and sample products/pets.
+It also inserts demo admin, demo user, categories and multiple sample pets/products added by admin.
 
 ## Git Push Process
 
@@ -111,7 +108,7 @@ Then push:
 
 ```powershell
 git add .
-git commit -m "Complete admin seller buyer panels"
+git commit -m "Use admin as seller and user as buyer"
 git branch -M main
 git push -u origin main
 ```
@@ -134,7 +131,7 @@ Tarpor push korun:
 
 ```powershell
 git add .
-git commit -m "Complete admin seller buyer panels"
+git commit -m "Use admin as seller and user as buyer"
 git branch -M main
 git push -u origin main
 ```
