@@ -1,5 +1,6 @@
 <?php
 require_once "include/function.php";
+$panelContext = 'user';
 
 if (currentUser()) {
     header("Location: user/index.php");

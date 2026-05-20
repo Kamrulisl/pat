@@ -4,10 +4,11 @@ $authAdmin = function_exists('currentAdmin') ? currentAdmin() : null;
 $prefix = (strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false || strpos($_SERVER['SCRIPT_NAME'], '/user/') !== false) ? '../' : '';
 $page = basename($_SERVER['SCRIPT_NAME']);
 $panel = $_GET['panel'] ?? '';
-$adminContext = $panel === 'admin' || strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false || in_array($page, ['add-pet.php', 'my-pets.php'], true);
-$userContext = $panel === 'user' || strpos($_SERVER['SCRIPT_NAME'], '/user/') !== false || in_array($page, ['profile.php', 'pass-change.php'], true);
-$showAdminMenu = $authAdmin && (!$userContext || $adminContext);
-$showUserMenu = $authUser && (!$adminContext || $userContext);
+$context = $panelContext ?? null;
+$adminContext = $context === 'admin' || $panel === 'admin' || strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false || in_array($page, ['add-pet.php', 'my-pets.php'], true);
+$userContext = $context === 'user' || $panel === 'user' || strpos($_SERVER['SCRIPT_NAME'], '/user/') !== false || in_array($page, ['profile.php', 'pass-change.php'], true);
+$showAdminMenu = $authAdmin && ($adminContext || (!$userContext && !$authUser));
+$showUserMenu = $authUser && ($userContext || (!$adminContext && !$authAdmin));
 $browsePanel = $adminContext ? '?panel=admin' : ($userContext ? '?panel=user' : '');
 ?>
 <aside class="bg-slate-900 text-white rounded-lg p-5">

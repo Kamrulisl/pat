@@ -11,6 +11,7 @@ if (!$admin && !$user) {
 
 $adminContext = $panel === 'admin' || ($admin && !$user);
 $userContext = $panel === 'user' || ($user && !$admin);
+$panelContext = $adminContext ? 'admin' : 'user';
 
 if ($adminContext && !$admin) {
     header("Location: admin/login.php");

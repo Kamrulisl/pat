@@ -3,6 +3,7 @@ require_once "include/function.php";
 $message = "";
 $panel = $_GET['panel'] ?? '';
 $adminContext = $panel === 'admin';
+$panelContext = $adminContext ? 'admin' : ($panel === 'user' ? 'user' : null);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pet_id'])) {
     if ($adminContext) {

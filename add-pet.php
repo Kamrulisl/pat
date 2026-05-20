@@ -1,5 +1,6 @@
 <?php
 require_once "include/function.php";
+$panelContext = 'admin';
 $admin = requireAdmin();
 $categories = getAllCategories();
 $error = "";

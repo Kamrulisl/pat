@@ -1,5 +1,6 @@
 <?php
 require_once "include/function.php";
+$panelContext = 'admin';
 $admin = requireAdmin();
 $admin_id = (int) $admin['admin_id'];
 $pets = getPets("Pets.admin_id=$admin_id");

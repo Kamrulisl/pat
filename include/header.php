@@ -3,10 +3,11 @@ $authUser = function_exists('currentUser') ? currentUser() : null;
 $authAdmin = function_exists('currentAdmin') ? currentAdmin() : null;
 $page = basename($_SERVER['SCRIPT_NAME']);
 $panel = $_GET['panel'] ?? '';
-$adminContext = $panel === 'admin' || strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false || in_array($page, ['add-pet.php', 'my-pets.php'], true);
-$userContext = $panel === 'user' || strpos($_SERVER['SCRIPT_NAME'], '/user/') !== false || in_array($page, ['profile.php', 'pass-change.php'], true);
-$showAdminMenu = $authAdmin && (!$userContext || $adminContext);
-$showUserMenu = $authUser && (!$adminContext || $userContext);
+$context = $panelContext ?? null;
+$adminContext = $context === 'admin' || $panel === 'admin' || strpos($_SERVER['SCRIPT_NAME'], '/admin/') !== false || in_array($page, ['add-pet.php', 'my-pets.php'], true);
+$userContext = $context === 'user' || $panel === 'user' || strpos($_SERVER['SCRIPT_NAME'], '/user/') !== false || in_array($page, ['login.php', 'register.php', 'profile.php', 'pass-change.php'], true);
+$showAdminMenu = $authAdmin && ($adminContext || (!$userContext && !$authUser));
+$showUserMenu = $authUser && ($userContext || (!$adminContext && !$authAdmin));
 $browsePanel = $adminContext ? '?panel=admin' : ($userContext ? '?panel=user' : '');
 ?>
 <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -18,7 +19,7 @@ $browsePanel = $adminContext ? '?panel=admin' : ($userContext ? '?panel=user' : 
             <ul class="flex flex-wrap items-center gap-3 text-sm font-medium">
                 <li><a href="index.php" class="hover:text-blue-600">Home</a></li>
                 <li><a href="browse.php<?= $browsePanel ?>" class="hover:text-blue-600">Browse Pets</a></li>
-                <?php if ($authUser || $authAdmin): ?>
+                <?php if ($showAdminMenu || $showUserMenu): ?>
                     <?php if ($showAdminMenu): ?>
                         <li><a href="admin/index.php" class="hover:text-blue-600">Admin</a></li>
                         <li><a href="admin/logout.php" class="text-red-600 hover:text-red-700">Admin Logout</a></li>
