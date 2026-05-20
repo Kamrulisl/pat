@@ -1,0 +1,43 @@
+DBMS Final Project/Lab Final
+
+minimum panel-2
+minimum requirement
+
+1. index.php (overview about site)
+2. login.php (login page)
+3. register.php (must include picture input, radio, and select options)
+4. profile.php (display inserted data and report)
+5. logout.php (logout page with session unset)
+6. pass-change.php (change password functionality)
+7. connection.php (establish database connection)
+8. aside.php (aside menu)
+9. navbar.php (include links to pass-change.php, profile.php, and logout.php on all pages)
+
+02-03-2025 Primary selection for final presentation
+02-03-2025 ER diagram submission date
+---03-2025 Project report submission date
+09-03-2025 Final project submission date
+
+
+i want to make a website Pet Selling, 
+Where Seller Can able to sell, buyer able to buy, 
+admin manage seller and buyer [language: mysql, php, html/css{tawlind} and high and high modern and smoot design]
+
+register.php (must include picture input, radio, and select options)
+pass-change.php (change password functionality)
+header.php (include links to pass-change.php, profile.php, and logout.php on all pages)
+aside.php (aside menu)
+header and aside include all page so give them separetely
+1st of all give me sql database schema for pet selling website
+
+
+<!-- Header -->
+<?php include("include/header.php"); ?>
+
+<!-- Main Content -->
+<main class="ml-64 p-8">
+    <!-- Page-specific content goes here -->
+</main>
+
+<!-- Aside Menu -->
+<?php include("include/aside.php"); ?>
