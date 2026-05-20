@@ -36,7 +36,9 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name
         </div>
     </div>
 </nav>
-<main class="max-w-7xl mx-auto px-4 py-8 space-y-8">
+<main class="max-w-7xl mx-auto px-4 py-8 grid lg:grid-cols-[240px_1fr] gap-6">
+    <?php include "../include/aside.php"; ?>
+    <div class="space-y-8">
     <section>
         <h1 class="text-3xl font-bold mb-2">User Panel</h1>
         <p class="text-slate-500 mb-6">Browse pets and place orders.</p>
@@ -61,6 +63,7 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name
             </table>
         </div>
     </section>
+    </div>
 </main>
 </body>
 </html>

@@ -35,7 +35,9 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
         <div class="flex gap-4 text-sm"><a href="index.php">Panel</a><a href="../browse.php">Browse</a><a href="../add-pet.php">Add Product</a><a href="logout.php">Logout</a></div>
     </div>
 </nav>
-<main class="max-w-7xl mx-auto px-4 py-8 space-y-8">
+<main class="max-w-7xl mx-auto px-4 py-8 grid lg:grid-cols-[240px_1fr] gap-6">
+    <?php include "../include/aside.php"; ?>
+    <div class="space-y-8">
     <section>
         <h1 class="text-3xl font-bold mb-4">Admin Panel</h1>
         <div class="grid md:grid-cols-3 gap-4">
@@ -68,6 +70,7 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
             <tbody><?php while ($orders && $order = mysqli_fetch_assoc($orders)): ?><tr class="border-t"><td class="p-3"><?= h($order['pet_name']) ?></td><td class="p-3"><?= h($order['user_name']) ?></td><td class="p-3">$<?= h($order['total_amount']) ?></td><td class="p-3"><form method="POST" class="flex gap-2"><input type="hidden" name="order_id" value="<?= (int) $order['order_id'] ?>"><select name="order_status" class="border rounded px-2 py-1"><option <?= $order['order_status']==='pending'?'selected':'' ?> value="pending">pending</option><option <?= $order['order_status']==='completed'?'selected':'' ?> value="completed">completed</option><option <?= $order['order_status']==='cancelled'?'selected':'' ?> value="cancelled">cancelled</option></select><button class="bg-slate-800 text-white px-3 rounded">Save</button></form></td></tr><?php endwhile; ?></tbody>
         </table>
     </section>
+    </div>
 </main>
 </body>
 </html>
