@@ -34,7 +34,7 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
 <nav class="bg-slate-950 text-white">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <a class="text-2xl font-bold" href="../dashboard.php">PetPals Admin</a>
-        <div class="flex gap-4 text-sm"><a href="../dashboard.php">Dashboard</a><a href="../logout.php">Logout</a></div>
+        <div class="flex gap-4 text-sm"><a href="../dashboard.php">Dashboard</a><a href="../add-pet.php">Add Product</a><a href="../logout.php">Logout</a></div>
     </div>
 </nav>
 <main class="max-w-7xl mx-auto px-4 py-8 space-y-8">
@@ -54,7 +54,10 @@ $orders = mysqli_query($conn, "SELECT Orders.*, Pets.pet_name, Users.full_name A
         </table>
     </section>
     <section class="bg-white border rounded-lg p-5 overflow-x-auto">
-        <h2 class="text-xl font-bold mb-4">Pets</h2>
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">Products / Pets</h2>
+            <a class="bg-emerald-600 text-white px-4 py-2 rounded-md text-sm" href="../add-pet.php">Add Product</a>
+        </div>
         <table class="w-full text-sm">
             <thead class="bg-slate-100"><tr><th class="text-left p-3">Pet</th><th class="text-left p-3">Seller</th><th class="text-left p-3">Category</th><th class="text-left p-3">Price</th><th class="text-left p-3">Status</th></tr></thead>
             <tbody><?php foreach ($pets as $pet): ?><tr class="border-t"><td class="p-3"><?= h($pet['pet_name']) ?></td><td class="p-3"><?= h($pet['seller_name']) ?></td><td class="p-3"><?= h($pet['category_name']) ?></td><td class="p-3">$<?= h($pet['price']) ?></td><td class="p-3"><?= h($pet['status']) ?></td></tr><?php endforeach; ?></tbody>

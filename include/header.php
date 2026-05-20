@@ -12,6 +12,9 @@
                     <li><a href="dashboard.php" class="hover:text-blue-600">Dashboard</a></li>
                     <li><a href="profile.php" class="hover:text-blue-600">Profile</a></li>
                     <li><a href="pass-change.php" class="hover:text-blue-600">Change Password</a></li>
+                    <?php if ($authUser['role'] === 'seller'): ?>
+                        <li><a href="seller/index.php" class="hover:text-blue-600">Seller</a></li>
+                    <?php endif; ?>
                     <?php if ($authUser['role'] === 'admin'): ?>
                         <li><a href="admin/index.php" class="hover:text-blue-600">Admin</a></li>
                     <?php endif; ?>

@@ -96,6 +96,9 @@ INSERT INTO Users (username, email, password_hash, full_name, phone_number, city
 ('buyer', 'buyer@petpals.com', 'e10adc3949ba59abbe56e057f20f883e', 'Demo Buyer', '01900000000', 'Dhaka', NULL, 'buyer');
 
 INSERT INTO Pets (seller_id, category_id, pet_name, breed, age, gender, price, description, pet_image, status) VALUES
+(1, 1, 'Admin Special Puppy', 'Labrador', 6, 'female', 300.00, 'Admin listed sample product for buyer testing.', NULL, 'available'),
 (2, 1, 'Max', 'Golden Retriever', 8, 'male', 350.00, 'Healthy, vaccinated and friendly puppy.', NULL, 'available'),
 (2, 2, 'Milo', 'Persian', 5, 'male', 220.00, 'Calm kitten, litter trained and playful.', NULL, 'available'),
-(2, 4, 'Snow', 'Mini Lop', 4, 'female', 80.00, 'Soft white rabbit with starter food pack.', NULL, 'available');
+(2, 3, 'Rio', 'Budgerigar', 3, 'male', 45.00, 'Colorful bird with starter cage and food.', NULL, 'available'),
+(2, 4, 'Snow', 'Mini Lop', 4, 'female', 80.00, 'Soft white rabbit with starter food pack.', NULL, 'available'),
+(2, 5, 'Goldie Pack', 'Goldfish', 2, 'female', 25.00, 'Small aquarium fish pack for beginners.', NULL, 'available');

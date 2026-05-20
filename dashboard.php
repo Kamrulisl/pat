@@ -34,11 +34,13 @@ $petsCount = $myPets ? mysqli_fetch_assoc($myPets)['total'] : 0;
             <div class="flex flex-wrap gap-3">
                 <a class="bg-blue-600 text-white px-4 py-2 rounded-md" href="browse.php">Browse Pets</a>
                 <?php if ($user['role'] === 'seller'): ?>
+                    <a class="bg-slate-800 text-white px-4 py-2 rounded-md" href="seller/index.php">Seller Panel</a>
                     <a class="bg-emerald-600 text-white px-4 py-2 rounded-md" href="add-pet.php">Add Pet</a>
-                    <a class="bg-slate-800 text-white px-4 py-2 rounded-md" href="my-pets.php">My Pets</a>
+                    <a class="border px-4 py-2 rounded-md" href="my-pets.php">My Pets</a>
                 <?php endif; ?>
                 <?php if ($user['role'] === 'admin'): ?>
                     <a class="bg-slate-800 text-white px-4 py-2 rounded-md" href="admin/index.php">Admin Panel</a>
+                    <a class="bg-emerald-600 text-white px-4 py-2 rounded-md" href="add-pet.php">Add Product</a>
                 <?php endif; ?>
                 <a class="border px-4 py-2 rounded-md" href="orders.php">Orders</a>
             </div>
